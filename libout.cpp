@@ -7,6 +7,8 @@
 uint32_t numberADDR = 0;
 uint8_t numberDATA = 0;
 extern String stringSplit[];
+int SETDELAY = 200;     //200 ms time default 
+bool flagprint = true; //default
 
 void writeAddr(uint32_t var, uint8_t pinStart, uint8_t pinFinal) {
   uint32_t mask = 0x01;
@@ -55,11 +57,13 @@ void convertStrToEnum(String xin){
 
 
 void control_mode(String xin){
+    String tempStr = "";
 
   switch (OP_MODE){
       case READ:
             Serial.print("READ\t\t");
             writeAddr(READ, RPPin, WEPin);
+            SETDELAY = 400; 
             break;
       case WRITE:
             Serial.print("WRITE\t\t");
@@ -71,14 +75,15 @@ void control_mode(String xin){
             break;
       default:
             //Serial.println("comando NO RECONOCIDO OP_MODE... ");
-            break;     
-            
+            break;            
     }
-    
+   //if (flagprint)
+      Serial.print(tempStr);
 }
 
 
 void control_mode(long xin){
+    String tempStr = "";
   OP_MODE = xin;
   switch (OP_MODE){
       case READ:
@@ -98,43 +103,45 @@ void control_mode(long xin){
             break;     
             
     }
-    
+   //if (flagprint)
+      Serial.print(tempStr);
 }
 
 
 void selection_mem(String xin){
+  String tempStr = "";
 
   switch (MEMORY){
       case M0:
-            Serial.println("M0 ");
+            tempStr = "M0 ";
             writeAddr(M0, A138Pin, C138Pin);
             break;
       case M1:
-            Serial.println("M1 ");
+            tempStr = "M1 ";
             writeAddr(M1, A138Pin, C138Pin);
             break;
       case M2:
-            Serial.println("M2 ");
+            tempStr = "M2 ";
             writeAddr(M2, A138Pin, C138Pin);
             break;
       case M3:
-            Serial.println("M3 ");
+            tempStr = "M3 ";
             writeAddr(M3, A138Pin, C138Pin);
             break;
       case M4:
-            Serial.println("M4 ");
+            tempStr = "M4 ";
             writeAddr(M4, A138Pin, C138Pin);
             break;
       case M5:
-            Serial.println("M5 ");
+            tempStr = "M5 ";
             writeAddr(M5, A138Pin, C138Pin);
             break;
       case M6:
-            Serial.println("M6 ");
+            tempStr = "M6 ";
             writeAddr(M6, A138Pin, C138Pin);
             break;
       case M7:
-            Serial.println("M7 ");
+            tempStr = "M7 ";
             writeAddr(M7, A138Pin, C138Pin);
             break;
       default:
@@ -142,43 +149,45 @@ void selection_mem(String xin){
             break;     
             
     }
-    
+   //if (flagprint)
+      Serial.print(tempStr);
 }
 
 
 void selection_mem(long xin){
+  String tempStr = "";
   MEMORY = xin;
   switch (MEMORY){
       case M0:
-            Serial.println("M0 ");
+            tempStr = "M0 ";
             writeAddr(M0, A138Pin, C138Pin);
             break;
       case M1:
-            Serial.println("M1 ");
+            tempStr = "M1 ";
             writeAddr(M1, A138Pin, C138Pin);
             break;
       case M2:
-            Serial.println("M2 ");
+            tempStr = "M2 ";
             writeAddr(M2, A138Pin, C138Pin);
             break;
       case M3:
-            Serial.println("M3 ");
+            tempStr = "M3 ";
             writeAddr(M3, A138Pin, C138Pin);
             break;
       case M4:
-            Serial.println("M4 ");
+            tempStr = "M4 ";
             writeAddr(M4, A138Pin, C138Pin);
             break;
       case M5:
-            Serial.println("M5 ");
+            tempStr = "M5 ";
             writeAddr(M5, A138Pin, C138Pin);
             break;
       case M6:
-            Serial.println("M6 ");
+            tempStr = "M6 ";
             writeAddr(M6, A138Pin, C138Pin);
             break;
       case M7:
-            Serial.println("M7 ");
+            tempStr = "M7 ";
             writeAddr(M7, A138Pin, C138Pin);
             break;
       default:
@@ -186,19 +195,21 @@ void selection_mem(long xin){
             break;     
             
     }
-    
+   //if (flagprint)
+      Serial.print(tempStr);
 }
 
 
 void enableDisable_mem(String xin){
+  String tempStr = "";
 
   switch (ED_MEM){
       case ENABLE_MEM:
-            Serial.print("ENABLE__138\t");
+            tempStr = "ENABLE__138\t";
             writeAddr(ENABLE_MEM, G2APin, G1Pin);
             break;
       case DISABLE_MEM:
-            Serial.print("DISABLE_138\t");
+            tempStr = "DISABLE_138\t";
             writeAddr(DISABLE_MEM, G2APin, G1Pin);
             break;
       default:
@@ -206,18 +217,21 @@ void enableDisable_mem(String xin){
             break;     
             
     }
+   //if (flagprint)
+      Serial.print(tempStr);
 }
 
 
 void enableDisable_mem(long xin){
+  String tempStr = "";
   ED_MEM = xin;
   switch (ED_MEM){
       case ENABLE_MEM:
-            Serial.print("ENABLE__138\t");
+            tempStr = "ENABLE__138\t";
             writeAddr(ENABLE_MEM, G2APin, G1Pin);
             break;
       case DISABLE_MEM:
-            Serial.print("DISABLE_138\t");
+            tempStr = "DISABLE_138\t";
             writeAddr(DISABLE_MEM, G2APin, G1Pin);
             break;
       default:
@@ -225,6 +239,8 @@ void enableDisable_mem(long xin){
             break;     
             
     }
+   //if (flagprint)
+      Serial.print(tempStr);
 }
 
 
@@ -234,15 +250,19 @@ void address_mode(String xin0, String xin1){
             unsigned long currentMillis = millis(); 
               for(uint16_t k = 0; k < MAX_ADDR; k++){
                   writeAddr(k, ADDR0, ADDR0 + ADDR_LINES);
-                  //Serial.print("ADDR: ");  Serial.println(k); 
+                  if ( flagprint){
+                      Serial.print("ADDR: ");  Serial.println(k); 
+                  }
+
                   //delayMicroseconds(10);
+
                   if (Serial.available() > 0) {
                         // read the commands:
-                        String x = sendCommands(); 
+                        String x = readCommands(); 
                         if(x == "STOP")
                             break;
                   }  
-              
+                  
               }
               long durationTime = millis() - currentMillis;
               Serial.print("TIME ADDR ALL EXEC = "); Serial.print(durationTime); Serial.println(" ms");
@@ -264,17 +284,25 @@ void address_mode(String xin0, String xin1){
 void data_mode(String xin0, String xin1){
       if (xin0 == "DATA"){
           if(xin1 == "ALL"){
+            bool activeflag = true;
             unsigned long currentMillis = micros(); 
               for(uint16_t k = 0; k < 256; k++){
                   writeAddr(k, DATA0, DATA7);
-                  //Serial.print("DATA: ");   Serial.println(k); 
+                   if ( flagprint){
+                      Serial.print("DATA: ");  Serial.println(k); 
+                   }
+
+                  //delayMicroseconds(10);
                   //delayMicroseconds(10);
                   if (Serial.available() > 0) {
-                              // read the commands:
-                              String x = sendCommands(); 
-                              if(x == "STOP")
-                                  break;
+                      // read the commands:
+                      String x = readCommands(); 
+                      if(x == "STOP")
+                          break;
+                      activeflag = false;
                   }  
+                  if (SETDELAY)
+                    delay(SETDELAY); 
               }
               long durationTime = micros() - currentMillis;
               Serial.print("TIME DATA ALL EXEC = "); Serial.print(durationTime); Serial.println(" us");
@@ -305,13 +333,15 @@ void data_mode(String xin0, String xin1){
                 control_mode(random(9, 12));
                 enableDisable_mem(random(2));
                 selection_mem(random(8));
+                Serial.println();
                 if (Serial.available() > 0) {
                     // read the commands:
-                    String x = sendCommands(); 
+                    String x = readCommands(); 
                     if(x == "STOP")
                     activeflag = false;
                 }  
-                delay(200);
+                if (SETDELAY)
+                  delay(SETDELAY);
           }
       }
       else {
@@ -319,8 +349,52 @@ void data_mode(String xin0, String xin1){
             convertStrToEnum(stringSplit[0]);
             address_mode("ADDR", random(0xFFFFF));
             data_mode("DATA", random(0xFF));
-            control_mode(String(random(9, 12)));
-            enableDisable_mem(String(random(2)));
-            selection_mem(String(random(8)));
+            control_mode(random(9, 12));
+            enableDisable_mem(random(2));
+            selection_mem(random(8));
       }
+}
+
+
+void configuration(){
+  
+      SubMenu();
+
+      Serial.print("\tPREVIO DELAY = "); Serial.print(SETDELAY);   Serial.println(" ms");
+      Serial.print("\tPRINT MENSAJES = "); if (flagprint)  Serial.println("ACTIVE");  else  Serial.println("DISABLE");
+
+      while(1){
+
+            readCommands();   
+      
+            if(stringSplit[0] == "PRINT"){
+                    if (stringSplit[1] == "ON")
+                          flagprint = true;
+                    if (stringSplit[1] == "OFF")
+                          flagprint = false;
+      
+              Serial.print("NOW PRINT MENSAJES = "); if (flagprint)  Serial.println("ACTIVE");  else  Serial.println("DISABLE");
+            
+            }
+      
+             if(stringSplit[0] == "SETDELAY"){
+      
+             int number = stringSplit[1].toInt();
+             
+             
+                if (number > 0)
+                    SETDELAY = number;
+                else if (number == 0)
+                    SETDELAY = number;
+                else
+                    Serial.print("error en configurar DELAY");
+      
+               Serial.print("NEW DELAY = "); Serial.print(SETDELAY);   Serial.println(" ms");
+      
+             }  
+
+             if(stringSplit[0] == "EXIT"){
+                break;
+             }
+      }  
 }

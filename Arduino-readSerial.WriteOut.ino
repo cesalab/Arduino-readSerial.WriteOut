@@ -1,5 +1,5 @@
 /*
- * PROGRAMA FUNCIONAL AL 17/12/21
+ * PROGRAMA FUNCIONAL AL 28/12/21
  * teensy 2++ 2.0
  * 
  * JASAVM 
@@ -9,9 +9,9 @@
 #include "libout.h"
 #include "libin.h"
 #include "librsc.h"
-#include "menu.h"
 
 extern String stringSplit[];
+
 
 void setup() {
     Serial.begin(115200); // opens serial port, sets data rate to 9600 bps
@@ -29,17 +29,26 @@ void setup() {
     control_mode("READ");
     enableDisable_mem("ENABLE");
     selection_mem("M0");
+    Serial.println();
 }
 
 void loop() {
       // reply only when you receive data:
       if (Serial.available() > 0) {
           // read the commands:
-          sendCommands();   
+          readCommands();   
 
-          if(stringSplit[0] == "RANDOM" )
+          if(stringSplit[0] == "MENU")
+              printMenu();
+          
+          if(stringSplit[0] == "CONFIG")
+              configuration();
+          
+          if(stringSplit[0] == "RANDOM" ){
               random_mode();
-          else{
+              //SETDELAY = 300; 
+          }else{
+           
           convertStrToEnum(stringSplit[0]);
           address_mode(stringSplit[0], stringSplit[1]);
           data_mode(stringSplit[0], stringSplit[1]);
@@ -47,6 +56,7 @@ void loop() {
           enableDisable_mem(stringSplit[0]);
           selection_mem(stringSplit[0]);
           }
-           limpiarComandos();
+          limpiarComandos();
+          Serial.println();
       }
 }

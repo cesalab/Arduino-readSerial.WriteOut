@@ -9,7 +9,7 @@ char *resultado = nullptr;
 char *strtok( char *str1, const char *str2 ); 
 
 
-String sendCommands(){
+String readCommands(){
   // read the incoming byte:
           incomingString = Serial.readString() ;
           //Serial.print("I received: ");

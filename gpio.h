@@ -1,5 +1,5 @@
-#ifndef GPIO_H
-#define GPIO_H
+#ifndef gpio_h
+#define gpio_h
 
 #include "Arduino.h"
 

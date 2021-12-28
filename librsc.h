@@ -1,9 +1,9 @@
-#ifndef LIBRSC_H
-#define LIBRSC_H
+#ifndef librsc_h
+#define librsc_h
 
 #include "Arduino.h"
 
-String sendCommands();
+String readCommands();
 void limpiarComandos();
 
 #endif

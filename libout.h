@@ -1,7 +1,8 @@
-#ifndef LIBOUT_H
-#define LIBOUT_H
+#ifndef libout_h
+#define libout_h
 
 #include "Arduino.h"
+
 
 void writeAddr(uint32_t var, uint8_t pinStart, uint8_t pinFinal) ;
 void convertStrToEnum();
@@ -15,5 +16,6 @@ void convertStrToEnum(String);
 void address_mode(String, String);
 void data_mode(String, String);
 void random_mode();
+void configuration();
 
 #endif

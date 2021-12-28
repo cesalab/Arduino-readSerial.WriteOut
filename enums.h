@@ -1,5 +1,5 @@
-#ifndef ENUMS_H
-#define ENUMS_H
+#ifndef enums_h
+#define enums_h
 
 enum OPERATIONS {DP0, DP1, DP2, DP3, DP4, DP5, DP6, DP7, UNKNOWOP, READ = 9, WRITE = 10, OUTDIS = 11, STB12, STB13, STB14, STB15};
 enum SELECTION {M0, M1, M2, M3, M4, M5, M6, M7} ;
