@@ -1,14 +1,10 @@
 /*
- * PROGRAMA FUNCIONAL AL 28/12/21
- * teensy 2++ 2.0
+ *  * teensy 2++ 2.0
  * 
  * JASAVM 
  */
-#include "gpio.h"
 #include "config.h"
-#include "libout.h"
-#include "libin.h"
-#include "librsc.h"
+
 
 extern String stringSplit[];
 

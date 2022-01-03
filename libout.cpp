@@ -1,8 +1,5 @@
 #include "Arduino.h"
-#include "enums.h"
-#include "gpio.h"
 #include "config.h"
-#include "librsc.h"
 
 uint32_t numberADDR = 0;
 uint8_t numberDATA = 0;
@@ -22,6 +19,10 @@ void writeAddr(uint32_t var, uint8_t pinStart, uint8_t pinFinal) {
   }
 }
 
+//Establecemos valores por default
+OPERATIONS OP_MODE = READ; 
+SELECTION MEMORY = M0; 
+ENABLEDIS ED_MEM = ENABLE_MEM;
 
 void convertStrToEnum(String xin){
 
